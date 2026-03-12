@@ -111,7 +111,9 @@ export async function runCommandStreaming(
 
 /**
  * Extract displayable text from a Claude stream-json event.
- * Returns text content from assistant messages, tool use summaries, and final results.
+ * Returns text content from assistant messages and tool use summaries.
+ * Skips 'result' events — those duplicate the final assistant message
+ * which is already delivered through the normal response pipeline.
  */
 function extractClaudeEventText(json: any): string | null {
     if (json.type === 'assistant' && json.message?.content) {
@@ -124,9 +126,6 @@ function extractClaudeEventText(json: any): string | null {
             }
         }
         return parts.length > 0 ? parts.join('\n') : null;
-    }
-    if (json.type === 'result' && json.result) {
-        return json.result;
     }
     return null;
 }
@@ -360,6 +359,11 @@ export async function invokeAgent(
             await runCommandStreaming('claude', claudeArgs, (line) => {
                 try {
                     const json = JSON.parse(line);
+                    // Use result event for the return value (not emitted as progress)
+                    if (json.type === 'result' && json.result) {
+                        response = json.result;
+                        return;
+                    }
                     const text = extractClaudeEventText(json);
                     if (text) {
                         response = text;
