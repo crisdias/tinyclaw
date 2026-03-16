@@ -21,6 +21,7 @@ import {
     recoverStaleMessages, pruneAckedResponses, pruneCompletedMessages,
     closeQueueDb, queueEvents,
     insertAgentMessage,
+    startScheduler, stopScheduler,
 } from '@tinyclaw/core';
 import { startApiServer } from '@tinyclaw/server';
 import {
@@ -239,6 +240,9 @@ const maintenanceInterval = setInterval(() => {
     await loadPlugins();
 })();
 
+// Start in-process cron scheduler
+startScheduler();
+
 log('INFO', 'Queue processor started (SQLite)');
 logAgentConfig();
 emitEvent('processor_start', { agents: Object.keys(getAgents(getSettings())), teams: Object.keys(getTeams(getSettings())) });
@@ -246,6 +250,7 @@ emitEvent('processor_start', { agents: Object.keys(getAgents(getSettings())), te
 // Graceful shutdown
 function shutdown(): void {
     log('INFO', 'Shutting down queue processor...');
+    stopScheduler();
     clearInterval(pollInterval);
     clearInterval(maintenanceInterval);
     apiServer.close();
