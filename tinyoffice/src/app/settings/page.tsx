@@ -341,16 +341,3 @@ function OverviewCard({ icon, title, value }: { icon: React.ReactNode; title: st
   );
 }
 
-function ApiEndpoint({ method, path, desc }: { method: string; path: string; desc: string }) {
-  const methodColor = method === "POST" ? "bg-blue-500/10 text-blue-500" :
-    method === "PUT" ? "bg-orange-500/10 text-orange-500" :
-    "bg-green-500/10 text-green-500";
-
-  return (
-    <div className="flex items-center gap-3 border p-3">
-      <Badge className={`${methodColor} text-[10px] font-mono`}>{method}</Badge>
-      <code className="text-xs font-mono flex-1">{path}</code>
-      <span className="text-xs text-muted-foreground hidden lg:inline">{desc}</span>
-    </div>
-  );
-}

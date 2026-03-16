@@ -318,8 +318,7 @@ case "${1:-}" in
         ;;
     *)
         local_names=$(IFS='|'; echo "${ALL_CHANNELS[*]}")
-        echo -e "${BLUE}TinyClaw - Claude Code + Messaging Channels${NC}"
-        echo ""
+        show_banner
         echo "Usage: $0 {start|stop|restart|status|setup|send|logs|reset <agent_id>|channel|heartbeat|provider|model|agent|team|chatroom|office|pairing|update|version|attach}"
         echo ""
         echo "Commands:"

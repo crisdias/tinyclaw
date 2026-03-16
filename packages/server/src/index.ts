@@ -27,6 +27,7 @@ import chatsRoutes from './routes/chats';
 import chatroomRoutes from './routes/chatroom';
 import agentMessagesRoutes from './routes/agent-messages';
 import servicesRoutes from './routes/services';
+import schedulesRoutes from './routes/schedules';
 
 const API_PORT = parseInt(process.env.TINYCLAW_API_PORT || '3777', 10);
 
@@ -58,6 +59,7 @@ export function startApiServer(
     app.route('/', chatroomRoutes);
     app.route('/', agentMessagesRoutes);
     app.route('/', servicesRoutes);
+    app.route('/', schedulesRoutes);
 
     // SSE endpoint — needs raw Node.js response for streaming
     app.get('/api/events/stream', (c) => {
