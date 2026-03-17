@@ -266,7 +266,7 @@ const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, {
         autoStart: true,
         params: { timeout: 25 },
     },
-    request: { family: 4 },  // Force IPv4 — Node 24 tries IPv6 first, which fails on WSL2
+    request: { family: 4 } as any,  // Force IPv4 — Node 24 tries IPv6 first, which fails on WSL2
 });
 
 // Bot ready
