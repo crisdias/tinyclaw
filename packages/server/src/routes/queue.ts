@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import {
-    Conversation, log,
+    Conversation, log, emitEvent,
     getQueueStatus, getRecentResponses, getResponsesForChannel,
     ackResponse, enqueueResponse,
     getDeadMessages, retryDeadMessage, deleteDeadMessage,
@@ -85,6 +85,15 @@ export function createQueueRoutes(conversations: Map<string, Conversation>) {
         });
 
         log('INFO', `[API] Proactive response enqueued for ${channel}/${sender}`);
+        emitEvent('response_ready', {
+            channel,
+            sender,
+            agentId: agent || 'system',
+            responseLength: message.length,
+            responseText: message,
+            messageId,
+            proactive: true,
+        });
         return c.json({ ok: true, messageId });
     });
 

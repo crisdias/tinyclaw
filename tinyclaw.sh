@@ -266,7 +266,7 @@ case "${1:-}" in
             echo -e "${BLUE}Building TinyOffice...${NC}"
             (cd "$OFFICE_DIR" && npm run build) || { echo -e "${RED}Build failed${NC}"; exit 1; }
         fi
-        echo -e "${GREEN}Starting TinyOffice on http://localhost:3000${NC}"
+        echo -e "${GREEN}Starting TinyOffice on http://localhost:44173${NC}"
         (cd "$OFFICE_DIR" && npm run start)
         ;;
     pairing)
@@ -305,7 +305,7 @@ case "${1:-}" in
         echo "  agent {list|add|remove|show|reset|provider}  Manage agents"
         echo "  team {list|add|remove|show|add-agent|remove-agent|visualize}  Manage teams"
         echo "  chatroom <team_id>       Live chat room viewer for a team"
-        echo "  office                   Start TinyOffice web portal (http://localhost:3000)"
+        echo "  office                   Start TinyOffice web portal (http://localhost:44173)"
         echo "  pairing {pending|approved|list|approve <code>|unpair <channel> <sender_id>}  Manage sender approvals"
         echo "  update                   Update TinyClaw to latest version"
         echo "  version                  Show current version"

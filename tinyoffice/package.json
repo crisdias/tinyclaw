@@ -2,9 +2,9 @@
   "name": "tinyoffice",
   "version": "0.1.0",
   "scripts": {
-    "dev": "next dev --webpack",
+    "dev": "next dev --webpack -p 44173",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 44173",
     "lint": "eslint"
   },
   "dependencies": {
