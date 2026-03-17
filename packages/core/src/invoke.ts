@@ -233,6 +233,9 @@ export async function invokeAgent(
         if (systemPrompt) {
             claudeArgs.push('--system-prompt', systemPrompt);
         }
+        if (agent.max_turns) {
+            claudeArgs.push('--max-turns', String(agent.max_turns));
+        }
         if (continueConversation) {
             claudeArgs.push('-c');
         }

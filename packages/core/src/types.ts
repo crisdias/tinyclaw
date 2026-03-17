@@ -13,6 +13,7 @@ export interface AgentConfig {
     working_directory: string;
     system_prompt?: string;
     prompt_file?: string;
+    max_turns?: number;
     heartbeat?: {
         enabled?: boolean;
         interval?: number;
